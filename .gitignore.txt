@@ -1,0 +1,84 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+ENV/
+env/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Data Files (DO NOT COMMIT RAW DATA)
+data/raw/*.csv
+data/raw/*.txt
+data/raw/*.xlsx
+*.csv.gz
+*.zip
+
+# Keep processed data structure but not files
+data/processed/*.csv
+!data/processed/.gitkeep
+
+# Output Files (optional - commit final reports)
+results/RCM_Analysis_Final.xlsx
+results/figures/*.png
+results/figures/*.jpg
+data/outputs/*.csv
+
+# Keep directory structure
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/outputs/.gitkeep
+!results/figures/.gitkeep
+
+# Temporary Files
+*.log
+*.tmp
+.cache/
+
+# OS Files
+Thumbs.db
+.DS_Store
+
+# Environment Variables
+.env
+.env.local
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Documentation builds
+docs/_build/
+site/
