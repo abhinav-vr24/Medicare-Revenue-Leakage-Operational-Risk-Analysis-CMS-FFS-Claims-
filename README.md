@@ -1,290 +1,314 @@
-# Medicare Revenue Cycle Management Analysis
-
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Data Source](https://img.shields.io/badge/Data-CMS%20SynPUF-orange.svg)](https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs)
-
-> A comprehensive revenue cycle performance analysis identifying $5.48M in revenue leakage and actionable optimization opportunities across 174K+ Medicare carrier claims.
+# Medicare Revenue Cycle Operations (ROS) Analysis
 
 ## Project Overview
 
-This project analyzes Medicare revenue cycle performance using CMS Synthetic Public Use Files (SynPUF) to identify revenue leakage drivers, payment patterns, and process inefficiencies. The analysis reveals critical insights including a **22.2% revenue leakage rate** and demonstrates that just **2 procedure codes account for 42% of total underpayment**.
+A comprehensive data analytics project examining Medicare Part B (Carrier) claims to identify revenue cycle inefficiencies, payment delays, and systematic underpayment patterns. This analysis transforms $5.48M in revenue leakage into actionable operational intelligence with $575K-$625K recovery potential.
 
-### Key Findings
+**Key Achievement**: Identified that 57% of revenue leakage stems from behavioral health services with systematic coverage limitations, enabling targeted interventions.
 
-- **$5.48M** in revenue leakage identified (22.2% of allowed charges)
-- **42%** of leakage concentrated in just 2 HCPCS codes (Pareto principle)
-- **77.8%** realization rate vs 95-98% industry benchmark
-- **75%** of leakage from partial payments (not denials)
-- **$800K-$1.1M** estimated recoverable revenue (15-20% of total leakage)
-
-## Quick Start
-
-### Prerequisites
-
-```bash
-Python 3.8+
-pandas
-numpy
-matplotlib
-seaborn
-openpyxl
-```
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/medicare-rcm-analysis.git
-cd medicare-rcm-analysis
-```
-
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-3. Download CMS SynPUF data:
-```bash
-# Download from: https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs
-# Place carrier claims file in data/raw/ directory
-```
-
-4. Run the analysis:
-```bash
-python src/rcm_analysis.py
-```
-
-## 📁 Project Structure
-
-```
-medicare-rcm-analysis/
-│
-├── data/
-│   ├── raw/                      # Raw CMS data files (not tracked)
-│   ├── processed/                # Cleaned datasets
-│   └── outputs/                  # Analysis outputs (CSV files)
-│
-├── src/
-│   ├── rcm_analysis.py          # Main analysis script
-│   ├── data_cleaning.py         # Data validation and cleaning
-│   ├── revenue_analysis.py      # Revenue realization metrics
-│   ├── payment_analysis.py      # Payment pattern analysis
-│   ├── delay_analysis.py        # Processing delay analysis
-│   └── visualization.py         # Chart generation
-│
-├── notebooks/
-│   └── RCM_Analysis.ipynb       # Interactive analysis notebook
-│
-├── results/
-│   ├── RCM_Analysis_Final.xlsx  # Executive dashboard
-│   ├── figures/                 # Generated visualizations
-│   └── reports/                 # Analysis reports
-│
-├── docs/
-│   ├── METHODOLOGY.md           # Detailed methodology
-│   ├── DATA_DICTIONARY.md       # Field definitions
-│   └── FINDINGS.md              # Detailed findings report
-│
-├── requirements.txt             # Python dependencies
-├── .gitignore                   # Git ignore rules
-├── LICENSE                      # MIT License
-└── README.md                    # This file
-```
-
-## Analysis Framework
-
-### 1. Data Cleaning & Validation
-- **Uniqueness checks**: Validate (CLM_ID, LINE_NUM) combinations
-- **Financial logic**: Ensure Submitted ≥ Allowed ≥ Paid
-- **Date consistency**: Service date ≤ Processing date
-- **Result**: 99.86% data quality (174,411 valid records)
-
-### 2. Revenue Realization Analysis
-**Key Metrics:**
-- Realization Rate = (Paid / Allowed) × 100
-- Underpayment = Allowed - Paid
-- Collection Efficiency = Provider Payment / Allowed
-- Denial Rate = 1 - Realization Rate
-
-### 3. Payment Pattern Classification
-- **Zero-Paid** (61.0%): Payment = $0 (denial proxy)
-- **Partial-Paid** (33.4%): $0 < Payment < Allowed (adjustment)
-- **Fully-Paid** (6.3%): Payment ≈ Allowed (normal processing)
-
-### 4. Risk Identification
-- **Pareto Analysis**: 80/20 concentration
-- **Outlier Detection**: IQR method on underpayment & delay
-- **Variation Analysis**: Coefficient of variation for process stability
-- **Result**: 12 high-risk services flagged
-
-## Key Visualizations
-
-### Revenue Waterfall
-Shows flow from Submitted ($24.68M) → Allowed ($24.68M) → Paid ($19.20M)
-
-### Pareto Chart
-Top 10 HCPCS codes by underpayment - demonstrates 42% concentration in 2 codes
-
-### Payment Distribution
-75% of leakage from partial payments vs 25% from denials
-
-### AR Aging Profile
-All claims in 0-30 day bucket (Medicare efficiency)
-
-## Strategic Recommendations
-
-### Priority 1: High Impact Quick Wins
-**1. Target Top 5 HCPCS Codes**
-- **Codes**: 96156, 94010, 99495, G8839, S9473
-- **Impact**: $3.07M (56% of total leakage)
-- **Action**: Deep-dive denial analysis, enhanced claims scrubbing
-- **Expected Recovery**: $460K-$615K
-
-### Priority 2: Systemic Improvements
-**2. Optimize Partial Payment Recovery**
-- **Impact**: $4.11M opportunity (75% of leakage)
-- **Action**: Systematic appeals process, contract renegotiation
-- **Expected Impact**: Improve realization rate from 77.8% to 82-85%
-
-**3. Address High-Risk Services**
-- **Codes**: G8939 (48.3% denial), G8434 (35.6% denial)
-- **Action**: Review documentation standards, targeted training
-- **Expected Impact**: Reduce denial rate by 5-10 percentage points
-
-### Priority 3: Process Excellence
-**4. Specialty-Specific Protocols**
-- **Focus**: Specialty 01 (24.2% denial rate vs 22.2% average)
-- **Action**: Customized charge capture, documentation templates
-- **Expected Impact**: Standardize performance across specialties
-
-**5. Real-Time Monitoring**
-- **Action**: Deploy automated dashboards, establish alerts
-- **Expected Impact**: Reduce detection-to-action time by 50%
+---
 
 ## Business Impact
 
-### Financial Impact
-- **Current State**: 77.8% realization rate
-- **Target State**: 85%+ (industry benchmark)
-- **Revenue Recovery**: $800K-$1.1M annually
-- **ROI**: 3-4x within 12 months
+| Metric | Value | Impact |
+|--------|-------|--------|
+| **Revenue Leakage Identified** | $5.48M (22.2% of allowed charges) | Quantified operational inefficiency |
+| **Claims Analyzed** | 174,411 line-level transactions | Comprehensive coverage |
+| **Recovery Opportunity** | $575K-$625K annually | 10.5-11.4% reduction in leakage |
+| **High-Risk Services Flagged** | 12 HCPCS codes | Targeted intervention points |
+| **Root Causes Identified** | 8 distinct dimensions | Systematic, addressable patterns |
 
-### Operational Impact
-- Reduced denial rate through targeted interventions
-- Improved cash flow through faster AR resolution
-- Enhanced provider satisfaction via reduced administrative burden
-- Scalable framework applicable to any payer mix
+---
 
-## Technical Approach
+## Key Findings
 
-### Data Processing Pipeline
-```python
-# 1. Load & Clean
-df = load_cms_data('carrier_claims.csv')
-df_clean = validate_financial_logic(df)
-df_2022 = filter_by_year(df_clean, 2022)
+### 1. **Pareto Concentration**
+- Top 2 HCPCS codes (96156, 94010) account for **42% of total underpayment**
+- Behavioral health services (Z-codes) drive **57% of revenue leakage**
 
-# 2. Calculate Metrics
-df_metrics = calculate_realization_metrics(df_2022)
-df_metrics = classify_payment_status(df_metrics)
-
-# 3. Aggregate & Analyze
-hcpcs_summary = aggregate_by_hcpcs(df_metrics)
-specialty_summary = aggregate_by_specialty(df_metrics)
-
-# 4. Identify Risks
-high_risk = detect_outliers(hcpcs_summary)
-risk_priority = prioritize_interventions(high_risk)
+### 2. **The Behavioral Health Hypothesis**
+```
+HCPCS 96156 (Health Behavior Assessment) + Diagnosis Z733 (Stress)
+    ↓
+61% denial rate in Office settings (POS 11)
+    ↓
+$1.66M in underpayment from stress-related counseling alone
 ```
 
-### Statistical Methods
-- **Descriptive Statistics**: Mean, median, quartiles, percentiles
-- **Outlier Detection**: Interquartile range (IQR) method
-- **Variation Analysis**: Coefficient of variation (CV)
-- **Concentration Analysis**: Pareto (80/20) principle
+### 3. **The Complexity Paradox**
+- **1 diagnosis**: 18% denial rate ✓
+- **4+ diagnoses**: 60-65% denial rate ✗
+- **Finding**: More documentation correlates with MORE denials (counterintuitive)
 
-## Data Source
+### 4. **Geographic Variation**
+- Denial rates range from 56% (low) to 67% (Connecticut) across states
+- Root cause: Regional Medicare Administrative Contractor (MAC) policies
 
-**CMS Medicare Claims Synthetic Public Use Files (SynPUF)**
-- Source: Centers for Medicare & Medicaid Services
-- Type: De-identified synthetic beneficiary and claims data
-- Coverage: 2008-2010 data (used 2022 synthetic extension)
-- Volume: 174,411 carrier claim lines analyzed
-- Link: [CMS SynPUF](https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs)
+### 5. **Payment Pattern Analysis**
+- **75% of leakage**: Partial payments (adjustments)
+- **25% of leakage**: Zero payments (denials)
+- **Implication**: Focus on improving partial payment rates for maximum impact
 
-### Data Limitations
-- Synthetic data may not reflect all real-world complexity
-- Limited explicit denial reason codes
-- Medicare only (no commercial payer mix)
-- Accelerated processing times (4-day avg vs typical 30-90 days)
+---
 
-## Use Cases
+## Technologies Used
 
-### For Healthcare Organizations
-- Benchmark revenue cycle performance
-- Identify procedure-specific leakage drivers
-- Prioritize denial prevention efforts
-- Support contract negotiation with data
+| Category | Tools |
+|----------|-------|
+| **Programming** | Python 3.x |
+| **Data Analysis** | Pandas, NumPy |
+| **Visualization** | Matplotlib, Seaborn |
+| **Environment** | Google Colab |
+| **Data Format** | CSV, XLSX |
+| **Documentation** | Markdown, Word (python-docx) |
 
-### For Analytics Teams
-- Framework for RCM analysis
-- Methodology for payment pattern analysis
-- Approach to risk identification
-- Template for executive reporting
+---
 
-### For Academic/Training
-- Real-world healthcare data analysis example
-- Revenue cycle management concepts
-- Python data analysis techniques
-- Business intelligence reporting
 
-## Contributing
 
-Contributions welcome! Please:
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+---
 
-## License
+## Methodology
 
-This project is not licensed.
+### **6-Step ROS Framework**
+
+| Step | Focus Area | Key Output |
+|------|-----------|------------|
+| **C1** | Data Validation | Quality checks, 99.86% pass rate |
+| **C2** | Revenue Realization | $5.48M underpayment identified |
+| **C3** | Denial Proxy Analysis | 61% zero-paid, 33.4% partial-paid |
+| **C4** | Delay & AR Analysis | 4-day avg processing (excellent) |
+| **C5** | Variation Analysis | Stability metrics, CV analysis |
+| **C6** | Outlier Detection | 12 high-risk services flagged |
+
+### **8-Dimension Root Cause Analysis**
+
+1. **Diagnosis Patterns** → Behavioral health codes show 70%+ denial rates
+2. **Place of Service** → Office (POS 11) has 62% denial vs. 11% in hospitals
+3. **Provider Characteristics** → State-level variation (56-67% denial range)
+4. **Service Complexity** → 12 diagnoses = 75% of dataset at 60% denial
+5. **Temporal Patterns** → Consistent across months, slight day-of-week variation
+6. **Carrier Patterns** → MAC-specific policies drive geographic differences
+7. **Procedure Modifiers** → Limited impact (insufficient data)
+8. **Assignment Status** → All claims assigned (homogeneous)
+
+---
+
+## Key Metrics & Formulas
+
+### Revenue Cycle Metrics
+
+# Underpayment Amount
+underpayment = allowed_amount - paid_amount
+
+# Revenue Realization Rate
+realization_rate = (paid_amount / allowed_amount) * 100
+
+# Denial Rate
+denial_rate = 1 - (paid_amount / allowed_amount)
+
+# Processing Delay (AR Proxy)
+delay_days = processing_date - service_date
+
+# Zero-Paid Flag (Denial Proxy)
+zero_paid = (paid_amount == 0)
+
+# Partial-Paid Flag
+partial_paid = (paid_amount > 0) & (paid_amount < allowed_amount)
+```
+
+### Statistical Metrics
+
+```
+# Coefficient of Variation (Stability)
+CV = standard_deviation / mean
+
+# IQR Outlier Detection
+outlier = value > Q3 + 1.5 * IQR
+
+# Pareto Analysis
+cumulative_percent = cumulative_sum / total_sum
+```
+
+---
+
+### Run Basic Analysis
+```python
+# Load and validate data
+df = pd.read_csv('carrier01.csv')
+
+# Filter to 2022
+df_2022 = df[df['SERVICE_YEAR'] == 2022]
+
+# Calculate underpayment
+df_2022['UNDERPAYMENT_AMT'] = (
+    df_2022['LINE_ALOWD_CHRG_AMT'] - df_2022['LINE_NCH_PMT_AMT']
+)
+
+# Aggregate by HCPCS
+hcpcs_summary = df_2022.groupby('HCPCS_CD').agg({
+    'LINE_NUM': 'count',
+    'LINE_ALOWD_CHRG_AMT': 'sum',
+    'LINE_NCH_PMT_AMT': 'sum',
+    'UNDERPAYMENT_AMT': 'sum'
+})
+
+# Calculate realization rate
+hcpcs_summary['realization_rate'] = (
+    hcpcs_summary['LINE_NCH_PMT_AMT'] / 
+    hcpcs_summary['LINE_ALOWD_CHRG_AMT']
+)
+```
+
+### Run Root Cause Analysis
+```python
+# Diagnosis pattern analysis
+diagnosis_leakage = df_2022.groupby('PRNCPAL_DGNS_CD').agg({
+    'CLM_ID': 'count',
+    'UNDERPAYMENT_AMT': ['sum', 'mean'],
+    'ZERO_PAID_FLAG': 'mean'
+})
+
+# Place of service analysis
+pos_performance = df_2022.groupby('LINE_PLACE_OF_SRVC_CD').agg({
+    'CLM_ID': 'count',
+    'ZERO_PAID_FLAG': 'mean',
+    'UNDERPAYMENT_AMT': 'mean'
+})
+
+# Complexity analysis
+df_2022['NUM_DIAGNOSES'] = df_2022[diagnosis_cols].notna().sum(axis=1)
+complexity_impact = df_2022.groupby('NUM_DIAGNOSES').agg({
+    'ZERO_PAID_FLAG': 'mean',
+    'UNDERPAYMENT_AMT': 'mean'
+})
+```
+
+---
+
+## Sample Visualizations
+
+### Revenue Waterfall
+![Revenue Flow](figures/1_revenue_waterfall.png)
+
+### Pareto Analysis - Top 10 HCPCS
+![Pareto](figures/2_pareto_top10_hcpcs.png)
+
+### Leakage Breakdown
+![Leakage](figures/3_leakage_breakdown.png)
+
+---
+
+## Actionable Recommendations
+
+### Phase 1: Quick Wins (0-30 Days) → $150K-$200K/month
+
+1. **Pre-submission review** for Z-code diagnoses (stress, counseling, substance abuse)
+2. **Provider education** on HCPCS 96156 coverage limitations
+3. **Flag claims** with 12 diagnoses for coding optimization
+4. **State-specific protocols** for high-denial regions (CT, MS, TN)
+
+### Phase 2: Process Improvements (30-90 Days) → $200K-$300K
+
+1. Build **automated denial prediction model** using root cause factors
+2. Establish **carrier-specific submission guidelines**
+3. Implement **place-of-service optimization** (shift to POS 22 where viable)
+4. Create **diagnosis + HCPCS combination alerts**
+
+### Phase 3: Strategic Initiatives (90-180 Days) → $400K-$600K annual
+
+1. **Negotiate with Medicare MACs** on behavioral health coverage
+2. Develop **alternative service delivery models** (telehealth, group sessions)
+3. Implement **continuous monitoring dashboard** with root cause alerts
+4. **Expand analysis** to provider-specific patterns
+
+---
+
+## Key Insights for Stakeholders
+
+### For Executives
+- **ROI**: $575K-$625K annual recovery opportunity (10.5-11.4% reduction in leakage)
+- **Risk Concentration**: 57% of leakage from behavioral health services enables targeted action
+- **Quick Wins**: Phase 1 interventions require minimal investment with immediate impact
+
+### For Revenue Cycle Managers
+- **Top Priority**: HCPCS 96156 and 94010 account for $2.29M in underpayment (42% of total)
+- **Process Insight**: 75% of leakage is partial payments, not denials—focus on payment rate improvement
+- **Geographic Strategy**: 11-point denial rate variance across states requires regional protocols
+
+### For Data Teams
+- **Data Quality**: 99.86% of records passed financial logic validation
+- **Analytical Depth**: 8-dimension root cause framework with 35 high-risk diagnoses identified
+- **Scalability**: Framework reusable for other payers, years, or service lines
+
+---
+
+## Data Sources
+
+- **Source**: CMS Medicare Part B Carrier Claims Public Use File (PUF)
+- **Year**: 2022 Calendar Year
+- **Volume**: 174,645 claim lines after filtering
+- **Columns**: 96 variables including financial, clinical, and administrative data
+
+---
+
+## Limitations & Caveats
+
+1. **Single Year Scope**: Limited to 2022; cannot assess trends
+2. **Denial Code Ambiguity**: All claims show code "1" - meaning unclear
+3. **Missing HCPCS**: 62.2% of lines lack procedure codes
+4. **Synthetic Data**: May be sampled/synthetic PUF; generalizability uncertain
+5. **Correlation ≠ Causation**: Root causes inferred, not confirmed with policy documents
+
+---
+
+## Documentation
+
+- [Detailed Analysis Report](reports/Medicare_Carrier_Analysis_Detailed_Report.docx) - 25 pages
+- [Integrated Root Cause Analysis](reports/Integrated_Root_Cause_Analysis.docx) - 30 pages
+- [Executive Summary](results/RCM_Analysis_Final.xlsx) - Dashboard workbook
+
+---
 
 ## Author
 
-**Abhinav Verma**
-- LinkedIn: www.linkedin.com/in/abhinavverma-mph-ha
-- Email: abhinav.tiss01@gmail.com
-- GitHub: [@abhinav-vr24](https://github.com/abhinav-vr24)
+**Abhinav Verma**  
+Data Analyst | Healthcare Revenue Cycle  
+[LinkedIn](www.linkedin.com/in/abhinavverma-mph-ha)
+---
+
+## License
+
+This project is for educational and portfolio purposes. Data used is from publicly available CMS files.
+
+---
 
 ## Acknowledgments
 
-- CMS for providing SynPUF dataset
-- Healthcare Financial Management Association (HFMA) for industry benchmarks
-
-
----
-
-**Note**: This analysis uses synthetic data for educational and demonstration purposes. Real-world healthcare data requires proper HIPAA compliance and data use agreements.
-
-## Quick Stats
-
-| Metric | Value |
-|--------|-------|
-| Claims Analyzed | 174,411 |
-| Revenue Processed | $24.68M |
-| Realization Rate | 77.8% |
-| Revenue Leakage | $5.48M |
-| Zero-Paid Rate | 61.0% |
-| High-Risk Services | 12 codes |
-| Recovery Potential | $800K-$1.1M |
-| Analysis Date | January 2025 |
+- CMS for providing public use files
+- Medicare Administrative Contractors (MACs) documentation
+- Revenue Cycle Operations best practices framework
 
 ---
 
-*Built with ❤️ for healthcare revenue cycle optimization*# Medicare-Revenue-Leakage-Operational-Risk-Analysis-CMS-FFS-Claims-
-# Medicare-Revenue-Leakage-Operational-Risk-Analysis-CMS-FFS-Claims-
-# Medicare-Revenue-Leakage-Operational-Risk-Analysis-CMS-FFS-Claims-
-# Medicare-Revenue-Leakage-Operational-Risk-Analysis-CMS-FFS-Claims-
+## Contact
+
+For questions or collaboration opportunities:
+- Email: abhinav.ha01@gmail.com
+- LinkedIn: [www.linkedin.com/in/abhinavverma-mph-ha)
+
+---
+
+## Future Enhancements
+
+- [ ] Multi-year trend analysis (2020-2024)
+- [ ] Provider-level performance benchmarking
+- [ ] Machine learning denial prediction model
+- [ ] Interactive Power BI/Tableau dashboard
+- [ ] Integration with claims management system APIs
+- [ ] Real-time monitoring and alerting framework
+- [ ] Expand to Medicare Part A (Inpatient) analysis
+
+---
+
+**⭐ If this project helped you, please give it a star!**
