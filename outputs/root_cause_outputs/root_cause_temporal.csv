@@ -1,0 +1,8 @@
+SERVICE_DOW,claims,denial_rate,avg_underpayment,avg_delay
+Monday,23401,62.0,30.43,4.0
+Tuesday,25105,61.0,30.06,3.0
+Wednesday,26475,61.0,32.95,2.0
+Thursday,25108,61.0,31.88,1.17
+Friday,24205,61.0,34.51,7.0
+Saturday,26219,60.0,30.36,6.0
+Sunday,24132,60.0,29.7,5.0
