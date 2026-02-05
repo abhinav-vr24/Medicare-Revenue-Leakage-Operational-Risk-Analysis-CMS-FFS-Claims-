@@ -65,7 +65,6 @@ $1.66M in underpayment from stress-related counseling alone
 ---
 
 
-
 ---
 
 ## Methodology
@@ -188,14 +187,7 @@ complexity_impact = df_2022.groupby('NUM_DIAGNOSES').agg({
 
 ## Sample Visualizations
 
-### Revenue Waterfall
-![Revenue Flow](figures/1_revenue_waterfall.png)
-
-### Pareto Analysis - Top 10 HCPCS
-![Pareto](figures/2_pareto_top10_hcpcs.png)
-
-### Leakage Breakdown
-![Leakage](figures/3_leakage_breakdown.png)
+### In output section
 
 ---
 
@@ -264,10 +256,8 @@ complexity_impact = df_2022.groupby('NUM_DIAGNOSES').agg({
 
 ## Documentation
 
-- [Detailed Analysis Report](reports/Medicare_Carrier_Analysis_Detailed_Report.docx) - 25 pages
-- [Integrated Root Cause Analysis](reports/Integrated_Root_Cause_Analysis.docx) - 30 pages
-- [Executive Summary](results/RCM_Analysis_Final.xlsx) - Dashboard workbook
-
+- [Detailed Analysis Report] 
+- [Integrated Root Cause Analysis]
 ---
 
 ## Author
